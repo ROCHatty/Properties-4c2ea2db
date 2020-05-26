@@ -2,6 +2,8 @@
 
 class MyLogger
 {
+	private $origin;
+	
 	private function logWithTime()
 	{
 		echo "[" . date('Y-m-d H:i:s') . "] ";
@@ -9,7 +11,7 @@ class MyLogger
 	
 	private function log($message, $level)
 	{
-		echo strtoupper($level) . ": " . $message . PHP_EOL;
+		echo $this -> origin . " - " . strtoupper($level) . ": " . $message . PHP_EOL;
 	}
 	
 	public function warning($message)
@@ -33,12 +35,18 @@ class MyLogger
 	{
 		$this -> log($message, "debug");
 	}
+	
+	public function setOrigin($origin)
+	{
+		$this -> origin = $origin;
+	}
 }
 
 $logs = new MyLogger();
-$logs -> warning("Dit is een warning");
-$logs -> error("Dit is een error");
-$logs -> info("Dit is wat info");
-$logs -> debug("Dit is een debug message");
+$logs -> setOrigin('TestClass');
+$logs -> warning("Dit is een waarschuwing");
+$logs -> error("Dit is een fout");
+$logs -> info("Dit is wat informatie");
+$logs -> debug("Dit is een debug bericht");
 
 ?>
